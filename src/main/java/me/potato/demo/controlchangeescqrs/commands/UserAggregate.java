@@ -1,9 +1,9 @@
 package me.potato.demo.controlchangeescqrs.commands;
 
-import me.potato.demo.controlchangeescqrs.commands.commands.CreateUserCommand;
-import me.potato.demo.controlchangeescqrs.commands.commands.DeleteUserCommand;
 import me.potato.demo.controlchangeescqrs.commands.commands.AddAddressesCommand;
 import me.potato.demo.controlchangeescqrs.commands.commands.AddContactsCommand;
+import me.potato.demo.controlchangeescqrs.commands.commands.CreateUserCommand;
+import me.potato.demo.controlchangeescqrs.commands.commands.DeleteUserCommand;
 import me.potato.demo.controlchangeescqrs.commands.events.*;
 import me.potato.demo.controlchangeescqrs.commands.events.stores.UserEventsRepository;
 import me.potato.demo.controlchangeescqrs.commands.events.stores.entities.EventPayload;
