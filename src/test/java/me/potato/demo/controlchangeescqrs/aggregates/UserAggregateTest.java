@@ -7,7 +7,7 @@ import me.potato.demo.controlchangeescqrs.commands.commands.AddContactsCommand;
 import me.potato.demo.controlchangeescqrs.commands.commands.CreateUserCommand;
 import me.potato.demo.controlchangeescqrs.commands.commands.DeleteUserCommand;
 import me.potato.demo.controlchangeescqrs.commands.events.stores.entities.UserEvent;
-import me.potato.demo.controlchangeescqrs.queries.UserProjections;
+import me.potato.demo.controlchangeescqrs.queries.ProjectedUser;
 import me.potato.demo.controlchangeescqrs.queries.entities.User;
 import me.potato.demo.controlchangeescqrs.queries.entities.valueobjects.Address;
 import me.potato.demo.controlchangeescqrs.queries.entities.valueobjects.Contact;
@@ -31,7 +31,7 @@ class UserAggregateTest {
   UserAggregate userAggregate;
 
   @Autowired
-  UserProjections userProjections;
+  ProjectedUser projectedUsers;
 
   @Test
   public void create() throws Exception {
@@ -55,22 +55,23 @@ class UserAggregateTest {
     UserEvent contact = userAggregate.handle(new AddContactsCommand(address.getAggregateId(), contacts));
 
 
-    User seoul = userProjections.handle(new UserByCityQuery(contact.getAggregateId(), "seoul"));
+    // 이하 Query Test
+    User seoul = projectedUsers.handle(new UserByCityQuery(contact.getAggregateId(), "seoul"));
     assertEquals(true, seoul != null);
 
-    User inchon = userProjections.handle(new UserByCityQuery(contact.getAggregateId(), "inchon"));
+    User inchon = projectedUsers.handle(new UserByCityQuery(contact.getAggregateId(), "inchon"));
     assertEquals(false, inchon != null);
 
-    User c01000000000 = userProjections.handle(new UserByDetailQuery(contact.getAggregateId(), "01000000000"));
+    User c01000000000 = projectedUsers.handle(new UserByDetailQuery(contact.getAggregateId(), "01000000000"));
     assertEquals(true, c01000000000 != null);
 
-    User c03000000000 = userProjections.handle(new UserByDetailQuery(contact.getAggregateId(), "03000000000"));
+    User c03000000000 = projectedUsers.handle(new UserByDetailQuery(contact.getAggregateId(), "03000000000"));
     assertEquals(false, c03000000000 != null);
 
-    Set<User> busan = userProjections.handle(new UsersByCityQuery("busan"));
+    Set<User> busan = projectedUsers.handle(new UsersByCityQuery("busan"));
     assertEquals(true, !busan.isEmpty());
 
-    Set<User> newyork = userProjections.handle(new UsersByCityQuery("newyork"));
+    Set<User> newyork = projectedUsers.handle(new UsersByCityQuery("newyork"));
     assertEquals(false, !newyork.isEmpty());
 
     // command

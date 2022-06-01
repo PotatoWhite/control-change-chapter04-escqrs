@@ -15,11 +15,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class UserProjections {
+public class ProjectedUser {
   private final UserQueryRepository    userQueryRepository;
   private final AddressQueryRepository addressQueryRepository;
 
-  public UserProjections(UserQueryRepository userQueryRepository, AddressQueryRepository addressQueryRepository) {
+  public ProjectedUser(UserQueryRepository userQueryRepository, AddressQueryRepository addressQueryRepository) {
     this.userQueryRepository    = userQueryRepository;
     this.addressQueryRepository = addressQueryRepository;
   }
